@@ -53,7 +53,7 @@ module Jekyll
     def render(context)
       output = super
       if @man
-        man =  "<a href='http://www.freebsd.org/cgi/man.cgi?query=#{@man}&sektion=#{@section}&manpath=#{@release}' title='#{@title}'>#{@link}</a>"
+        man =  "<a class='man' href='http://www.freebsd.org/cgi/man.cgi?query=#{@man}&sektion=#{@section}&manpath=#{@release}' title='#{@title}'>#{@link}</a>"
       else
         "Error processing input, expected syntax: {% port category/portname ['link text'] ['title text'] %}"
       end

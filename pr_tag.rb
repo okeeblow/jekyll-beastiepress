@@ -36,7 +36,7 @@ module Jekyll
     def render(context)
       output = super
       if @pr
-        pr =  "<a href='http://www.freebsd.org/cgi/query-pr.cgi?pr=#{@pr}' title='#{@title}'>#{@link}</a>"
+        pr =  "<a class='pr' href='http://www.freebsd.org/cgi/query-pr.cgi?pr=#{@pr}' title='#{@title}'>#{@link}</a>"
       else
         "Error processing input, expected syntax: {% pr [category/]prnumber ['link text'] ['title text'] %}"
       end

@@ -36,7 +36,7 @@ module Jekyll
     def render(context)
       output = super
       if @port
-        port =  "<a href='http://freshports.org/#{@port}' title='#{@title}'>#{@link}</a>"
+        port =  "<a class='port' href='http://freshports.org/#{@port}' title='#{@title}'>#{@link}</a>"
       else
         "Error processing input, expected syntax: {% port category/portname ['link text'] ['title text'] %}"
       end
