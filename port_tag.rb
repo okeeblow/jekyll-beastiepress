@@ -19,7 +19,7 @@ module Jekyll
     @link = ''
 
     def initialize(tag_name, markup, tokens)
-      if markup =~ /(\S+\/\S+)(\s+((?:"|')([^"']+)(?:"|')))?(\s+((?:"|')([^"']+)(?:"|')))?/i
+      if markup =~ /(\S+(?:\/\S+)?)(\s+((?:"|')([^"']+)(?:"|')))?(\s+((?:"|')([^"']+)(?:"|')))?/i
         @port = $1
         @link = $4
         @title = $7
