@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'jekyll-beastiepress'
-  s.version     = '1.0.0'
+  s.version     = '1.0.1'
   s.date        = '2012-02-21'
   s.summary     = "FreeBSD community tags for Jekyll"
   s.description = "Extend Jekyll with easy tags for linking FreeBSD manual pages, ports, and problem reports."
