@@ -51,9 +51,15 @@ module Jekyll
       output = super
 
       if @man
-        man =  "<a class='man' href='http://www.freebsd.org/cgi/man.cgi?query=#{@man}&amp;sektion=#{@section}&amp;manpath=#{@release}' title='#{@anchor_title}'>#{@link_text}</a>"
+        if @release.eql? 'ubuntu'
+          href = "http://manpages.ubuntu.com/#{@man}.#{@section}"
+        else
+          href = "http://www.freebsd.org/cgi/man.cgi?query=#{@man}&amp;sektion=#{@section}&amp;manpath=#{@release}"
+        end
+
+        "<a class='man' href='#{href}' title='#{@anchor_title}'>#{@link_text}</a>"
       else
-        "Error processing input, expected syntax: {% port category/portname ['link text'] ['title text'] %}"
+        "Error processing input, expected syntax: {% man topic [release] ['link text'] ['title text'] %}"
       end
     end
   end
