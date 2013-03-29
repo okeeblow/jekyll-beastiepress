@@ -22,13 +22,13 @@ module Jekyll
     def initialize(tag_name, markup, tokens)
       if markup =~ /((\d+)\s+)?([a-zA-Z0-9_.]+)(\s+((?:"|')([^"']+)(?:"|')))?(\s+((?:"|')([^"']+)(?:"|')))?(\s+((?:"|')([^"']+)(?:"|')))?/i
         @section = $2 || ''
-        @man = $3 || nil
+        @page = $3 || nil
         @release = $6 || ''
         @link_text = $9 || ''
         @anchor_title = $12 || ''
 
         unless @link_text
-          @link_text = @man
+          @link_text = @page
 
           if @section
             @link_text += "(#{@section})"
@@ -40,7 +40,7 @@ module Jekyll
         end
 
         unless @anchor_title
-          @anchor_title = "man #{@man}"
+          @anchor_title = "man #{@page}"
           @anchor_title += " from #{@release}" if @release
         end
       end
@@ -50,16 +50,16 @@ module Jekyll
     def render(context)
       output = super
 
-      if @man
+      if @page
         if @release.eql? 'ubuntu'
-          href = "http://manpages.ubuntu.com/#{@man}.#{@section}"
+          href = "http://manpages.ubuntu.com/#{@page}.#{@section}"
         else
-          href = "http://www.freebsd.org/cgi/man.cgi?query=#{@man}&amp;sektion=#{@section}&amp;manpath=#{@release}"
+          href = "http://www.freebsd.org/cgi/man.cgi?query=#{@page}&amp;sektion=#{@section}&amp;manpath=#{@release}"
         end
 
         "<a class='man' href='#{href}' title='#{@anchor_title}'>#{@link_text}</a>"
       else
-        "Error processing input, expected syntax: {% man topic [release] ['link text'] ['title text'] %}"
+        "Error processing input, expected syntax: {% man section page [release] ['link text'] ['title text'] %}"
       end
     end
   end
