@@ -18,33 +18,30 @@
 module Jekyll
 
   class ManTag < Liquid::Tag
-    @man = nil
-    @section = ''
-    @release = ''
-    @title = ''
-    @link = ''
 
     def initialize(tag_name, markup, tokens)
       if markup =~ /((\d+)\s+)?([a-zA-Z0-9_.]+)(\s+((?:"|')([^"']+)(?:"|')))?(\s+((?:"|')([^"']+)(?:"|')))?(\s+((?:"|')([^"']+)(?:"|')))?/i
-        @section = $2
-        @man = $3
-        @release = $6
-        @link = $9
-        @title = $12
-        if !@link
-          @link = @man
+        @section = $2 || ''
+        @page = $3 || nil
+        @release = $6 || ''
+        @link_text = $9 || ''
+        @anchor_title = $12 || ''
+
+        unless @link_text
+          @link_text = @page
+
           if @section
-            @link += "(#{@section})"
+            @link_text += "(#{@section})"
           end
-          if @release && @title
-            @title += " from #{@release}"
+
+          if @anchor_title
+            @anchor_title += " from #{@release}" if @release
           end
         end
-        if !@title
-          @title = "man #{@man}"
-          if @release
-            @title += " from #{@release}"
-          end
+
+        unless @anchor_title
+          @anchor_title = "man #{@page}"
+          @anchor_title += " from #{@release}" if @release
         end
       end
       super
@@ -52,10 +49,17 @@ module Jekyll
 
     def render(context)
       output = super
-      if @man
-        man =  "<a class='man' href='http://www.freebsd.org/cgi/man.cgi?query=#{@man}&amp;ektion=#{@section}&amp;manpath=#{@release}' title='#{@title}'>#{@link}</a>"
+
+      if @page
+        if @release.eql? 'ubuntu'
+          href = "http://manpages.ubuntu.com/#{@page}.#{@section}"
+        else
+          href = "http://www.freebsd.org/cgi/man.cgi?query=#{@page}&amp;sektion=#{@section}&amp;manpath=#{@release}"
+        end
+
+        "<a class='man' href='#{href}' title='#{@anchor_title}'>#{@link_text}</a>"
       else
-        "Error processing input, expected syntax: {% port category/portname ['link text'] ['title text'] %}"
+        "Error processing input, expected syntax: {% man section page [release] ['link text'] ['title text'] %}"
       end
     end
   end
