@@ -3,6 +3,8 @@ BeastiePress for Jekyll
 
 These Jekyll plugins add ```port```, ```pr```, and ```man``` tags through Liquid, making it easy to link to FreeBSD ports, problem reports, and manual pages.
 
+The canonical repository for this software is hosted at [cooltrainer.org/source](https://cooltrainer.org/source/). The GitHub remote is for social features like pull requests.
+
 Basic Setup
 -----------
 Install the gem:
