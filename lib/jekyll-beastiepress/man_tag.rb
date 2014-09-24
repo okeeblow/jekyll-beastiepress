@@ -15,6 +15,8 @@
 # <a href='http://www.freebsd.org/cgi/man.cgi?query=lpc&sektion=&manpath=' title='man lpc'>lpc</a>
 #
 
+require "liquid"
+
 module Jekyll
 
   class ManTag < Liquid::Tag
